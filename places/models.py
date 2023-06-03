@@ -31,3 +31,28 @@ class Places(models.Model):
     class Meta:
         verbose_name = 'место'
         verbose_name_plural = 'Места'
+
+
+class Images(models.Model):
+    place = models.ForeignKey(
+        Places,
+        verbose_name='Место',
+        related_name='images',
+        on_delete=models.CASCADE,
+    )
+    image = models.ImageField(
+        'Картинка',
+    )
+    weight = models.IntegerField(
+        'Вес для сортировки',
+        null=True,
+        blank=True,
+        default=1,
+    )
+
+    def __str__(self):
+        return f'Фото №{self.id} для {self.place}'
+
+    class Meta:
+        verbose_name = 'фотография'
+        verbose_name_plural = 'Фотографии'
