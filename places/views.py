@@ -1,9 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse, JsonResponse
 
 from .models import Places, Images
 
 def index(request):
-
     places_geo_json = {
         'type': 'FeatureCollection',
         'features': [],
@@ -32,3 +32,20 @@ def index(request):
     }
 
     return render(request, 'index.html', context=context)
+
+def api_get_place(request, place_id):
+    place = get_object_or_404(Places, pk=place_id)
+
+    context = {
+        'title': place.title,
+        'imgs': [image.image.url for image in place.images.all()],
+        'description_short': place.description_short,
+        'description_long': place.description_long,
+        'coordinates': {
+            'lng': place.coordinate_lng,
+            'lat': place.coordinate_lat,
+        }
+
+    }
+
+    return JsonResponse(context)
