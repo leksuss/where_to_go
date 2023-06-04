@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
+from django.urls import reverse
 
-from .models import Places, Images
+from .models import Places
 
 def index(request):
     places_geo_json = {
@@ -10,11 +11,6 @@ def index(request):
     }
     places = Places.objects.all()
     for place in places:
-        place_slug = None
-        if place.id == 2:
-            place_slug = 'roofs24'
-        elif place.id == 1:
-            place_slug = 'moscow_legends'
         places_geo_json['features'].append({
               'type': 'Feature',
               'geometry': {
@@ -23,8 +19,8 @@ def index(request):
               },
               'properties': {
                 'title': place.title,
-                'placeId': place_slug,
-                'detailsUrl': f'https://raw.githubusercontent.com/devmanorg/where-to-go-frontend/master/places/{place_slug}.json'
+                'placeId': place.id,
+                'detailsUrl': reverse('get_place', kwargs={'place_id':place.id}),
               }
         })
     context = {
@@ -35,7 +31,6 @@ def index(request):
 
 def api_get_place(request, place_id):
     place = get_object_or_404(Places, pk=place_id)
-
     context = {
         'title': place.title,
         'imgs': [image.image.url for image in place.images.all()],
@@ -45,7 +40,5 @@ def api_get_place(request, place_id):
             'lng': place.coordinate_lng,
             'lat': place.coordinate_lat,
         }
-
     }
-
     return JsonResponse(context)
