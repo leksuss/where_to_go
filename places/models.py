@@ -1,15 +1,13 @@
 from django.db import models
 
-# Create your models here.
 
-class Places(models.Model):
+class Place(models.Model):
     title = models.CharField(
         'Название места',
         max_length=100,
     )
-    description_short = models.CharField(
+    description_short = models.TextField(
         'Краткое описание',
-        max_length=255,
         null=True,
         blank=True,
     )
@@ -33,15 +31,16 @@ class Places(models.Model):
         verbose_name_plural = 'Места'
 
 
-class Images(models.Model):
+class Image(models.Model):
     place = models.ForeignKey(
-        Places,
+        Place,
         verbose_name='Место',
         related_name='images',
         on_delete=models.CASCADE,
     )
     image = models.ImageField(
         'Картинка',
+        upload_to='places/',
     )
     weight = models.IntegerField(
         'Вес для сортировки',

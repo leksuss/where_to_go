@@ -2,11 +2,11 @@ from django.contrib import admin
 from django.utils.html import format_html
 
 # Register your models here.
-from .models import Places, Images
+from .models import Place, Image
 
 
-class ImagesInline(admin.TabularInline):
-    model = Images
+class ImageInline(admin.TabularInline):
+    model = Image
     readonly_fields = ['preview_image']
     extra = 1
 
@@ -14,9 +14,9 @@ class ImagesInline(admin.TabularInline):
         return format_html(f'<img src="{obj.image.url}" width="200">')
 
 
-@admin.register(Places)
+@admin.register(Place)
 class PlacesAdmin(admin.ModelAdmin):
-    inlines = (ImagesInline,)
+    inlines = (ImageInline,)
 
 
-admin.site.register(Images)
+admin.site.register(Image)
