@@ -1,11 +1,12 @@
 from django.contrib import admin
 from django.utils.html import format_html
 
-# Register your models here.
+from adminsortable2.admin import SortableStackedInline, SortableAdminBase
+
 from .models import Place, Image
 
 
-class ImageInline(admin.TabularInline):
+class ImageInline(SortableStackedInline):
     model = Image
     readonly_fields = ['preview_image']
     extra = 1
@@ -15,8 +16,7 @@ class ImageInline(admin.TabularInline):
 
 
 @admin.register(Place)
-class PlacesAdmin(admin.ModelAdmin):
+class PlacesAdmin(SortableAdminBase, admin.ModelAdmin):
     inlines = (ImageInline,)
-
 
 admin.site.register(Image)

@@ -42,11 +42,12 @@ class Image(models.Model):
         'Картинка',
         upload_to='places/',
     )
-    weight = models.IntegerField(
+    weight = models.PositiveIntegerField(
         'Вес для сортировки',
         null=True,
         blank=True,
-        default=1,
+        default=0,
+        db_index=True,
     )
 
     def __str__(self):
@@ -55,3 +56,4 @@ class Image(models.Model):
     class Meta:
         verbose_name = 'фотография'
         verbose_name_plural = 'Фотографии'
+        ordering = ['weight']
