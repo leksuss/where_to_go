@@ -35,7 +35,7 @@ Python3 should be already installed. Then use pip (or pip3, if there is a confli
 pip3 install -r requirements.txt
 ```
 
-Set environment variables in `.env` file. You have an example of this file `.env_example`, so you can rename it: 
+Set environment variables in `.env` file. Repo has an example of this file `.env_example`, so you can rename it: 
 ```
 mv .env_example .env
 ```
@@ -59,8 +59,7 @@ Run Django built-in webserver:
 python3 manage.py runserver
 ```
 
-And then open your favorite browser and type in the address bar this url [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
-Admin panel located here: [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
+And then open your favorite browser and type in the address bar this url [http://127.0.0.1:8000/](http://127.0.0.1:8000/), admin panel located here: [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
 
 
 ## How to fill site with data examples
