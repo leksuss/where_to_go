@@ -34,6 +34,26 @@ Python3 should be already installed. Then use pip (or pip3, if there is a confli
 # If you would like to install dependencies inside virtual environment, you should create it first.
 pip3 install -r requirements.txt
 ```
+
+Set environment variables in `.env` file. You have an example of this file `.env_example`, so you can rename it: 
+```
+mv .env_example .env
+```
+and fill with necessary data:
+ - `SECRET_KEY`, random string at least 50 characters
+ - `DEBUG`, set it to `False` if you will run it in production otherwize `True`
+ - `ALLOWED_HOSTS`, comma-separated list of hosts. `127.0.0.1` for local development or your host(domain name) for production 
+
+Then run migrations:
+```
+python3 manage.py migrate
+```
+
+To login in admin panel you should create user, use this command and follow instructions:
+```
+python3 manage.py createsuperuser
+```
+
 Run Django built-in webserver:
 ```
 python3 manage.py runserver
@@ -42,10 +62,6 @@ python3 manage.py runserver
 And then open your favorite browser and type in the address bar this url [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
 Admin panel located here: [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
 
-To create user use this command and follow instructions:
-```
-python3 manage.py createsuperuser
-```
 
 ## How to fill site with data examples
 
