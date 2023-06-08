@@ -18,5 +18,6 @@ class ImageInline(SortableStackedInline):
 @admin.register(Place)
 class PlacesAdmin(SortableAdminBase, admin.ModelAdmin):
     inlines = (ImageInline,)
+    search_fields = ['title']
 
 admin.site.register(Image)
