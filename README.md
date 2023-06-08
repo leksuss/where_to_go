@@ -40,18 +40,23 @@ python3 manage.py runserver
 ```
 
 And then open your favorite browser and type in the address bar this url [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
+Admin panel located here: [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
 
+To create user use this command and follow instructions:
+```
+python3 manage.py createsuperuser
+```
 
 ## How to fill site with data examples
 
 Go [here](https://github.com/devmanorg/where-to-go-places/tree/master/places), this is a list of json files with data of each place. To add place in site, run:
 
 ```
-python3 manage.py <url_to_json>
+python3 manage.py load_place <url_to_json>
 ```
 
 ## Data source
-All data is from http://kudago.ru
+All data is from [kudago.com](http://kudago.com)
 
 ## Goals
 This project is made for study purpose.
