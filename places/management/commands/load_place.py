@@ -27,19 +27,22 @@ class Command(BaseCommand):
             coordinate_lat=place['coordinates']['lat'],
             coordinate_lng=place['coordinates']['lng'],
             defaults={
-                'description_short': place['description_short'],
-                'description_long': place['description_long'],
+                'description_short': place.get('description_short', ''),
+                'description_long': place.get('description_long', ''),
             }
         )
-        if is_created:
-            for image_url in place['imgs']:
-                self.load_place_images(image_url, place_obj)
+        if not is_created:
+            return
+
+        for image_url in place.get('imgs', ()):
+            self.load_place_images(image_url, place_obj)
 
     def load_place_images(self, image_url, place_obj):
         response = requests.get(image_url)
         response.raise_for_status()
 
-        image = Image.objects.create(place=place_obj)
-
         filename = Path(urlparse(image_url).path).name
-        image.image.save(filename, ContentFile(response.content), save=True)
+        Image.objects.create(
+            place=place_obj,
+            image=ContentFile(response.content, name=filename)
+        )
