@@ -25,12 +25,12 @@ class Place(models.Model):
         'Долгота',
     )
 
-    def __str__(self):
-        return self.title
-
     class Meta:
         verbose_name = 'место'
         verbose_name_plural = 'Места'
+
+    def __str__(self):
+        return self.title
 
 
 class Image(models.Model):
@@ -52,10 +52,12 @@ class Image(models.Model):
         db_index=True,
     )
 
-    def __str__(self):
-        return f'Фото №{self.id} для {self.place}'
-
     class Meta:
         verbose_name = 'фотография'
         verbose_name_plural = 'Фотографии'
         ordering = ['weight']
+
+    def __str__(self):
+        return f'Фото №{self.id} для {self.place}'
+
+
