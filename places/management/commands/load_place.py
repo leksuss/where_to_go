@@ -24,10 +24,12 @@ class Command(BaseCommand):
         place = response.json()
         place_obj, is_created = Place.objects.get_or_create(
             title=place['title'],
-            description_short=place['description_short'],
-            description_long=place['description_long'],
             coordinate_lat=place['coordinates']['lat'],
             coordinate_lng=place['coordinates']['lng'],
+            defaults={
+                'description_short': place['description_short'],
+                'description_long': place['description_long'],
+            }
         )
         if is_created:
             for image_url in place['imgs']:
