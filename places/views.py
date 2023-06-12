@@ -42,4 +42,7 @@ def api_get_place(request, place_id):
             'lat': place.coordinate_lat,
         }
     }
-    return JsonResponse(context)
+    return JsonResponse(context, json_dumps_params={
+        'ensure_ascii': False,
+        'indent': 2,
+    })
