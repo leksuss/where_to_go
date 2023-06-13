@@ -44,5 +44,5 @@ class Command(BaseCommand):
         filename = Path(urlparse(image_url).path).name
         Image.objects.create(
             place=place_obj,
-            image=ContentFile(response.content, name=filename)
+            image=ContentFile(response.content, name=filename),
         )
